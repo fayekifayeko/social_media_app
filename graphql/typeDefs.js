@@ -23,8 +23,12 @@ email: String!
 type Query {
     #sayHello: String!  # ! for required
     getPosts: [Post]
+    getPost(postId: ID!): Post
 }
 type Mutation {
-    register(registerInput: RegisterInput): User
+    register(registerInput: RegisterInput): User!
+    login(userName: String!, password: String!): User!
+    createPost(body: String!): Post!
+    deletePost(postId: ID!): String!
 }
 `
