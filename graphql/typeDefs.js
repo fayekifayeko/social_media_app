@@ -6,6 +6,10 @@ type Post {
     body: String! # ! mark means that the resolver should return it
     createdAt: String!
     userName: String!
+    likes: [Like]!
+    comments: [Comment]!
+    likeCount: Int!
+    commentCount: Int!
 }
 type User {
     token: String!
@@ -13,6 +17,17 @@ type User {
     id: ID
     userName: String!
     createdAt: String!
+}
+type Comment {
+    id: ID!
+    body: String!
+    userName: String!
+    createdAt: String!
+}
+type Like {
+    id: ID!
+    createdAt: String!
+    userName: String!
 }
 input RegisterInput { #input is a special type
 userName: String!
@@ -30,5 +45,11 @@ type Mutation {
     login(userName: String!, password: String!): User!
     createPost(body: String!): Post!
     deletePost(postId: ID!): String!
+    createComment(postId: ID!, body: String): Post!
+    deleteComment(postId: ID!, commentId: ID, ): Post!
+    likePost(postId: ID): Post!
+}
+type Subscription {
+    newPost: Post!
 }
 `

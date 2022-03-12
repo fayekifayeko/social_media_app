@@ -26,10 +26,12 @@ const resolvers = require('./graphql/resolvers')
     }
 }
 } */
+const pubsub = new PubSub();
+
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: ({req}) => ({req})
+    context: ({req}) => ({req, pubsub})
 });
 
 mongoose.connect(config.url)
