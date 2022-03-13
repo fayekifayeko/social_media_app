@@ -1,4 +1,4 @@
-const {ApolloServer} = require('apollo-server');
+const {ApolloServer, PubSub } = require('apollo-server');
 const typeDefs = require('./graphql/typeDefs');
 const mongoose = require('mongoose');
 const config = require('./config');

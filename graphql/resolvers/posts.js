@@ -111,7 +111,7 @@ module.exports = {
         newPost: {
             // subscribe: (parent,args,context) => pubsub.asyncIterator('NEW_POST')
 
-            subscribe: (_,_,{pubsub}) => pubsub.asyncIterator('NEW_POST')
+            subscribe: (_,__,{pubsub}) => pubsub.asyncIterator('NEW_POST')
         }
     }
 }
