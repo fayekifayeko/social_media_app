@@ -1,6 +1,6 @@
 import React from 'react';
 import moment from 'moment';
-import { Button, Card, Icon, Label, Image } from 'semantic-ui-react';
+import { Card, Image } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 export default function PostCard({post: { body, createdAt, id, userName, likeCount, commentCount, likes}}) {

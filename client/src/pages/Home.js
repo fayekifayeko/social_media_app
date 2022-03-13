@@ -2,14 +2,16 @@ import React from 'react';
 
 import { Grid } from 'semantic-ui-react';
 
-import {useQuery} from '@apollo/react-hooks';
+import { useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
+
+import PostCard from '../components/PostCard';
 
 function Home() {
 
-    const FETCH_POSTS_QUERY= gql`
+ const FETCH_POSTS_QUERY = gql`
     {
-    getPosts {
+      getPosts {
         id
         body
         createdAt
@@ -20,16 +22,18 @@ function Home() {
         }
         commentCount
         comments {
-            userName
-            createdAt
-            body
+          id
+          userName
+          createdAt
+          body
         }
+      }
     }
-    }
-    `
-
-    const {loading, data: {getPosts: posts} = useQuery(FETCH_POSTS_QUERY);
-
+  `;
+const {
+    loading,
+    data: { getPosts: posts }
+  } = useQuery(FETCH_POSTS_QUERY);
     return(
         <Grid columns='three'>
         <Grid.Row>

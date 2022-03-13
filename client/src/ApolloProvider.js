@@ -1,10 +1,18 @@
-import { ApolloProvider } from '@apollo/react-hooks';
-import ApolloClient from 'apollo-boost';
+import React from 'react';
 import App from './App';
+import ApolloClient from 'apollo-client';
+import { InMemoryCache } from 'apollo-cache-inmemory';
+import { createHttpLink } from 'apollo-link-http';
+import { ApolloProvider } from '@apollo/react-hooks';
+
+const httpLink = createHttpLink({
+  uri: 'http://localhost:5000/'
+});
 
 const client = new ApolloClient({
-    uri: 'https://localhost:5000',
-  });
+  link: httpLink,
+  cache: new InMemoryCache()
+});
 
   export default (
     <ApolloProvider client={client}> {/* Provider will provide the app with the apollo client in the context, so it could be used anywhere in the app */}

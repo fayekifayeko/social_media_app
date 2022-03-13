@@ -31,7 +31,7 @@ export default function MenuBar() {
             <Menu.Item
               name='register'
               active={activeItem === 'rsgister'}
-              onClick={this.handleItemClick}
+              onClick={handleItemClick}
               as={Link}
               to='/register'
             />
