@@ -1,11 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Button, Form } from 'semantic-ui-react'
+import { useMutation } from '@apollo/react-hooks';
+import gql from 'graphql-tag';
 
-function Login() {
+function Register(props) {
+    const [errors, setErrors] = useState({});
+    const [values, setValues] = useState({
+        userName: '',
+        email: '',
+        password: '',
+        confirmPassword: ''
+    });
+
+    const[addUser, {loading}]  = useMutation(REGISTER_USER_MUTATION,
+        {
+            update(proxy, result) {
+                console.log(result);
+                props.history.push('/')
+            },
+            onError(err) {
+                setErrors(err.graphQLErrors[0].extensions.exception.errors)
+            },
+            variables: values
+        }
+        )
+
+    const onChange = (e) => setValues({...values, [e.target.name]: e.target.value});
+
+    const handleSubmit = (e) => {
+e.preventDefault();
+addUser(); // will trigger the mutation above
+}
+
+const REGISTER_USER_MUTATION = gql`
+mutation register(
+    $userName: string!, 
+    $email: String!, 
+    $password: String!, 
+    $confirmPassword: String
+    ){
+    register(
+        registerInput: {userName: $userName, email: $email, password: $password, confirmPassword: $confirmPassword}
+    ){
+        id
+      email
+      username
+      createdAt
+      token
+    }
+}
+`
+
     return(
-        <div>
-            <h1>Login</h1>
+        <div className="form-container">
+            <Form onSubmit={handleSubmit} noValidate className={loading ? 'loading' : ''}>
+                <h1>Register</h1>
+            <Form.Input error={!!errors.userName} label='User name' placeholder='Username' name='userName' type="text" value={values.userName} onChange={onChange}/>
+
+            <Form.Input error={!!errors.email} label='Email' placeholder='Email...' name='email' type="email"  value={values.email} onChange={onChange}/>
+
+            <Form.Input error={!!errors.password} label='Password' placeholder='Password...' name='password' type="password" value={values.password} onChange={onChange}/>
+            <Form.Input error={!!errors.confirmPassword} label='Confirm password' placeholder='Confirm password' type="password" name='confirmPassword'  value={values.confirmPassword} onChange={onChange}/>
+
+    <Button type='submit' primary>Register</Button>
+  </Form>
+  {Object.keys(errors).lenght > 0 && (
+  <div className='ui error messgae'>
+      <ul className='list'>
+          {Object.values(errors).map(value => (
+              <li  key={value}>{value}</li>
+          ))}
+      </ul>
+  </div>)}
         </div>
     )
 }
 
-export default Login;
+export default Register;
