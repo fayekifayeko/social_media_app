@@ -1,6 +1,8 @@
 import React from 'react';
 import {BrowserRouter as Router, Route} from 'react-router-dom';
 
+import { AuthProvider } from './context/AuthContext';
+
 import { Container } from 'semantic-ui-react'
 
 import Home from './pages/Home';
@@ -13,7 +15,7 @@ import './App.css';
 
 function App() {
   return (
-
+    <AuthProvider>
     <Router>
       <Container>
       <MenuBar />
@@ -22,6 +24,7 @@ function App() {
     <Route exact path = '/register' component={Register} />
     </Container>
     </Router>
+    </AuthProvider>
   );
 }
 
