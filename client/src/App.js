@@ -13,6 +13,8 @@ import MenuBar from './components/MenuBar'
 import 'semantic-ui-css/semantic.min.css' // before App.css so we can override semantic ui stylings if we need
 import './App.css';
 
+import {RedirectToHomeRoute} from './utils/RedirectRoute'
+
 function App() {
   return (
     <AuthProvider>
@@ -21,7 +23,7 @@ function App() {
       <MenuBar />
     <Route exact path = '/' component={Home} />
     <Route exact path = '/login' component={Login} />
-    <Route exact path = '/register' component={Register} />
+    <RedirectToHomeRoute exact path = '/register' component={Register} /> {/* redirect to home page, if you are logged and try to navigate manually to register */}
     </Container>
     </Router>
     </AuthProvider>
