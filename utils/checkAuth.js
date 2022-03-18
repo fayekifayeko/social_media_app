@@ -6,7 +6,7 @@ module.exports = (context) => {
     const header = context.req.headers.authorization;
 
     if(header) {
-        const token = header.split('Beare ')[1];
+        const token = header.split('Bearer ')[1];
 
         if(token) {
             try {
@@ -16,7 +16,7 @@ module.exports = (context) => {
                 throw new AuthenticationError('Invalid/Expired token')
             }
         } else {
-            throw new Error('Authentication token must be Beare [token]')
+            throw new Error('Authentication token must be Bearer [token]')
         }
     } else {
         throw new Error('Authentication headers not provided')
