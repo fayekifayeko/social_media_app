@@ -9,11 +9,11 @@ function SinglePost(props) {
    const postId = props.match.params.postId // the Router will pass this in all children props 
 
     return(
-      
+      <h1>Hi...</h1>
     )
 }
 
 export default SinglePost;
 
-const FETCH_POST_QUERY = gql`
-`
+/* const FETCH_POST_QUERY = gql`
+` */

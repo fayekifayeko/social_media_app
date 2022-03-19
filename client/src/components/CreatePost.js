@@ -4,7 +4,7 @@ import {Button, Form} from 'semantic-ui-react';
 import {useForm} from '../hooks/useForm';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import {FETCH_POSTS_QUERY} from '../utils/gql';
+import {FETCH_POSTS_QUERY} from '../utils/qraphgql';
 
 export function CreatePost() {
     const {handleSubmit, onChange, values} = useForm(createPostCallBack, {
@@ -59,7 +59,7 @@ export function CreatePost() {
              <h2>Create post</h2>
             <Form.Field>
                 <Form.Input 
-                placeHolder="Write a post..."
+                placeholder="Write a post..."
                 value={values.body}
                 name="body"
                 onChange={onChange}
@@ -68,10 +68,10 @@ export function CreatePost() {
             </Form.Field>
             <Button type="submit" color="teal">Create post</Button>
         </Form>
-        <div className='ui error message' style={{marginBottom: 20}}>
+        {error && <div className='ui error message' style={{marginBottom: 20}}>
       <ul className='list'>
-              <li>{error.graphQLErrors[0].extensions.errors.body}</li>
+      <li>{error.graphQLErrors[0].extensions.errors.body}</li>
       </ul>
-  </div>
+  </div>}
 </>
     )}

@@ -22,7 +22,7 @@ export function LikeButton({user, post: {likeCount, id, likes}}) {
     const likeButton = user ? 
     alreadyLiked ? (
         <Button  as='div' labelPosition='right' onClick={likePost}>
-        <Button basic color='teal'>
+        <Button  color='teal'>
           <Icon name='heart' />
         </Button>
         <Label as='a' basic color='teal' pointing='left'>
@@ -61,14 +61,13 @@ Apollo client will know that it needs to update the cached post that has this id
                so the ui in Home page will update automatically without to do anything */
 const LIKE_POST_MUTATION = gql` 
 mutation likePost($postId: ID!){
-    likePost(postId: postId){
+    likePost(postId: $postId){
         id   
   likes {
     id
-    username
+    userName
   }
   likeCount
 }
     }
-}
 `

@@ -3,21 +3,22 @@ import React, {useContext} from 'react';
 import { Grid, Transition  } from 'semantic-ui-react';
 
 import { useQuery } from '@apollo/react-hooks';
-import {FETCH_POSTS_QUERY} from '../utils/gql';
 import { AuthContext } from '../context/AuthContext';
 
 import PostCard from '../components/PostCard';
 import {CreatePost} from '../components/CreatePost';
+import { FETCH_POSTS_QUERY } from '../utils/qraphgql';
 
 
 function Home() {
   const {userData} = useContext(AuthContext);
 
-const {
+  const {
     loading,
     data: { getPosts: posts }
   } = useQuery(FETCH_POSTS_QUERY); // will triggered when ts related cach is updated(t.ex: createPost component)
-    return(
+    
+  return(
         <Grid columns='three'>
         <Grid.Row>
         <h1>Recent posts</h1>
