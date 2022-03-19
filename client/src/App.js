@@ -9,6 +9,7 @@ import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
 import MenuBar from './components/MenuBar'
+import SinglePost from './pages/SinglePost'
 
 import 'semantic-ui-css/semantic.min.css' // before App.css so we can override semantic ui stylings if we need
 import './App.css';
@@ -22,8 +23,9 @@ function App() {
       <Container>
       <MenuBar />
     <Route exact path = '/' component={Home} />
-    <Route exact path = '/login' component={Login} />
+    <RedirectToHomeRoute exact path = '/login' component={Login} />
     <RedirectToHomeRoute exact path = '/register' component={Register} /> {/* redirect to home page, if you are logged and try to navigate manually to register */}
+    <Route exact path="/posts/:postId" component={SinglePost} />
     </Container>
     </Router>
     </AuthProvider>
