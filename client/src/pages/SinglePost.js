@@ -30,11 +30,12 @@ function SinglePost(props) {
        props.history.push('/')
     
 }
-   const {userName, id, likeCount, likes, commentCount, body, createdAt, comments} = getPost;
 
    if (!getPost) {
     markUp = <h1>Loading....</h1>
    } else {
+    const {userName, id, likeCount, likes, commentCount, body, createdAt, comments} = getPost;
+
     markUp = (
         <Grid>
             <Grid.Row>
@@ -64,7 +65,7 @@ function SinglePost(props) {
         {commentCount}
       </Label>
     </Button>
-    {user&&user.userName===userName&&<DeleteButton callBack={deletePostCallBack}/>}   {/* if the logged user is the post owner  */}
+    {user&&user.userName===userName&&<DeleteButton postId={postId} callBack={deletePostCallBack}/>}   {/* if the logged user is the post owner  */}
   </div>
     </Card.Content>
         </Card>

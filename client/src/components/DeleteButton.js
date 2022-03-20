@@ -5,12 +5,12 @@ import {
     Icon,
     Confirm
   } from 'semantic-ui-react';
-import { useQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { FETCH_POSTS_QUERY } from '../utils/qraphgql';
 
 export function DeleteButton({postId, callBack}) {
     const [confirmOpen, setConfirmOpen] = useState(false);
-    const [deletePost] = useQuery(DELETE_POST_MUTATION, {
+    const [deletePost] = useMutation(DELETE_POST_MUTATION, {
         update(proxy) {
             setConfirmOpen(false);
             if(callBack) callBack();
@@ -19,7 +19,9 @@ export function DeleteButton({postId, callBack}) {
                 query: FETCH_POSTS_QUERY
             })
 
-            chachedData.getPosts = chachedData.filter(item => item.id !==postId);
+            console.log(chachedData)
+
+            chachedData.getPosts = chachedData.getPosts.filter(item => item.id !==postId);
             proxy.writeQuery({query: FETCH_POSTS_QUERY,chachedData});
         },
         variables: {postId}
@@ -33,14 +35,14 @@ export function DeleteButton({postId, callBack}) {
     <Confirm 
     open={confirmOpen}
     onCancel={() => setConfirmOpen(false)}
-    onActionClick={() => deletePost}
+    onConfirm={deletePost}
     />
     </>
     )
 }
 
 const DELETE_POST_MUTATION = gql`
-mutation deletPost(postId: ID!){
+mutation deletePost($postId: ID!){
     deletePost(postId: $postId)
 }
 `
