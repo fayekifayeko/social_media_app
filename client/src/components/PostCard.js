@@ -4,6 +4,7 @@ import { Card, Image, Button, Icon, Label } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import {LikeButton} from '../components/LikeButton';
+import {DeleteButton} from '../components/DeleteButton';
 
 export default function PostCard({post: { body, createdAt, id, userName, likeCount, commentCount, likes}}) {
   const { userData: user } = useContext(AuthContext);
@@ -33,11 +34,7 @@ export default function PostCard({post: { body, createdAt, id, userName, likeCou
         {commentCount}
       </Label>
     </Button>
-    {user&&user.userName===userName&&( /* if the logged user is the post owner */
-      <Button as='div' floated='right' color='red' onClick={() => {}}>
-        <Icon name='trash' style={{margin: 0}} />
-    </Button>
-    )}
+    {user&&user.userName===userName&&<DeleteButton />} {/* if the logged user is the post owner */}
   </div>
     </Card.Content>
         </Card>
