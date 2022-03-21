@@ -34,7 +34,7 @@ const server = new ApolloServer({
     context: ({req}) => ({req, pubsub})
 });
 
-mongoose.connect(config.url)
+mongoose.connect(config.MONGODB)
 .then(() => {
     console.log('Connection to mongodb succeeded');
     return server.listen({port: 5000}) // it runs express in the background

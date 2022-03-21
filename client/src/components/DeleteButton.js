@@ -5,18 +5,17 @@ import {
     Icon,
     Confirm
   } from 'semantic-ui-react';
-import { useQuery } from '@apollo/react-hooks';
+import { useMutation } from '@apollo/react-hooks';
 import { FETCH_POSTS_QUERY } from '../utils/qraphgql';
-import {Popup} from '../components/Popup';
+import {MyPopup} from './MyPopup';
 
 export function DeleteButton({postId, commentId, callBack}) {
     const [confirmOpen, setConfirmOpen] = useState(false);
 
     const deleteMutation = commentId ? DELETE_COMMENT_MUTATION : DELETE_POST_MUTATION;
-    const [deleteCallback] = useQuery(deleteMutation, {
+    const [deleteCallback] = useMutation(deleteMutation, {
         update(proxy) {
             setConfirmOpen(false);
-            if(callBack) callBack();
 
             if(!commentId) {  // when delete a comment, Apollo will updatethe post auto in the cach and delete the comment
        // remove post from the cache
@@ -24,25 +23,37 @@ export function DeleteButton({postId, commentId, callBack}) {
         query: FETCH_POSTS_QUERY
     })
 
-    chachedData.getPosts = chachedData.filter(item => item.id !==postId);
-    proxy.writeQuery({query: FETCH_POSTS_QUERY,chachedData});
+    chachedData.getPosts = chachedData.getPosts.filter(item => item.id !==postId);
+    console.log('ppppppppppppppppp', chachedData)
+    proxy.writeQuery({ query: FETCH_POSTS_QUERY, chachedData });
+    console.log('vvvvvvvvvvvv', chachedData)
+
+}
+            if(callBack) {
+                callBack();
             }
-     
+
+
         },
-        variables: {postId}
+        variables: {
+            postId,
+        commentId
+        }
     })
 
     return(
-        <Popup content={commentId ? 'Delete comment' : 'Delete post'}>
+        <>
+        <MyPopup content={commentId ? 'Delete comment' : 'Delete post'}>
         <Button as='div' floated='right' color='red' onClick={() => setConfirmOpen(true)}>
         <Icon name='trash' style={{margin: 0}} />
     </Button>
+    </MyPopup>
     <Confirm 
     open={confirmOpen}
     onCancel={() => setConfirmOpen(false)}
-    onActionClick={() => deleteCallback}
+    onConfirm={deleteCallback}
     />
-    </Popup>
+    </>
     )
 }
 
@@ -53,8 +64,8 @@ mutation deletPost($postId: ID!){
 `
 
 const DELETE_COMMENT_MUTATION = gql`
-mutation deletComment($postId: ID!, $commentId: ID!){
-    mutation deletComment(postId: $postId, commentId: $commentId){
+mutation deleteComment($postId: ID!, $commentId: ID!){
+    deleteComment(postId: $postId, commentId: $commentId){
         id,
         comments {
             id

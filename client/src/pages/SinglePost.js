@@ -14,7 +14,7 @@ import { AuthContext } from '../context/AuthContext';
 import moment from 'moment';
 import {LikeButton} from '../components/LikeButton';
 import {DeleteButton} from '../components/DeleteButton';
-import { Popup } from '../components/Popup';
+import { MyPopup } from '../components/MyPopup';
 
 function SinglePost(props) {
    const postId = props.match.params.postId // the Router will pass this in all children props 
@@ -70,7 +70,7 @@ function SinglePost(props) {
           <Card.Content extra>
           <div>
    <LikeButton user={user} post={{likeCount, id, likes}} />
-   <Popup content='Comment a post'>
+   <MyPopup content='Comment a post'>
     <Button labelPosition='right' as='div' onClick={()=>{}}>
       <Button basic color='blue'>
         <Icon name='comments' />
@@ -79,7 +79,7 @@ function SinglePost(props) {
         {commentCount}
       </Label>
     </Button>
-    </Popup>
+    </MyPopup>
     {user&&user.userName===userName&&<DeleteButton postId={postId} callBack={deletePostCallBack}/>}   {/* if the logged user is the post owner  */}
   </div>
     </Card.Content>

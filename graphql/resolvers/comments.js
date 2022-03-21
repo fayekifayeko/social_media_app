@@ -28,13 +28,15 @@ module.exports = {
                 throw new Error(err)
 
             }
-        }
-    },
+        },
     async deleteComment(_, {postId, commentId}, context) {
+        console.log('post')
         const {userName} = checkAuth(context);
+        console.log('post')
 
         try {
             const post = await Post.findById(postId);
+            console.log(post)
 
             if(post) {
                 const commentIndex = await post.comments.findIndex(item => item.id === commentId)
@@ -42,6 +44,7 @@ module.exports = {
                 if(post.comments[commentIndex].userName === userName) {
                     post.comments.splice(commentIndex, 1);
                     await post.save();
+                    console.log(post)
                     return post;
     
                 } else {
@@ -53,9 +56,12 @@ module.exports = {
     
             }
         } catch(err) {
+            console.log('post')
+
             throw new Error(err) // not recommended to send this to the user as it gives some details about your server app
         }
 
    
     }
+}
 }
