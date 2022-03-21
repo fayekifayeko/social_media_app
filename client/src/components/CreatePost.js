@@ -40,7 +40,8 @@ export function CreatePost() {
            const cachedData= proxy.readQuery({ // read posts from Apollo cach, no need to trigger the api
                 query: FETCH_POSTS_QUERY
             })
-            cachedData.getPosts = [result.data.getPost, ...cachedData.getPosts] ; // cached data is object wit a key getPosts (Check apollo devtools, cahched option)
+            console.log(result.data)
+            cachedData.getPosts = [result.data.createPost, ...cachedData.getPosts] ; // cached data is object wit a key getPosts (Check apollo devtools, cahched option)
             proxy.writeQuery({FETCH_POSTS_QUERY, cachedData}) // add the created post to the cached posts
             values.body = '';
         },

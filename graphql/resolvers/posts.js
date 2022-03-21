@@ -65,7 +65,7 @@ module.exports = {
             // no need to check the user as all checks was done into checkAuth function
 
             try {
-                const post = Post.findById(postId);
+                const post = await Post.findById(postId);
                 if(post.userName === user.userName) { // if the user trying to delete the post is the owner
                     await post.delete();
 

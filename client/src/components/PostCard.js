@@ -37,7 +37,7 @@ export default function PostCard({post: { body, createdAt, id, userName, likeCou
       </Label>
     </Button>
     </Popup>
-    {user&&user.userName===userName&&<DeleteButton />} {/* if the logged user is the post owner */}
+    {user&&user.userName===userName&&<DeleteButton postId={id}/>} {/* if the logged user is the post owner */}
   </div>
     </Card.Content>
         </Card>

@@ -10,7 +10,6 @@ import {
   } from 'semantic-ui-react';
 import { useMutation, useQuery } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
-import {useForm} from '../hooks/useForm';
 import { AuthContext } from '../context/AuthContext';
 import moment from 'moment';
 import {LikeButton} from '../components/LikeButton';
@@ -44,11 +43,12 @@ function SinglePost(props) {
        props.history.push('/')
     
 }
-   const {userName, id, likeCount, likes, commentCount, body, createdAt, comments} = getPost;
 
    if (!getPost) {
     markUp = <h1>Loading....</h1>
    } else {
+    const {userName, id, likeCount, likes, commentCount, body, createdAt, comments} = getPost;
+
     markUp = (
         <Grid>
             <Grid.Row>
@@ -80,7 +80,7 @@ function SinglePost(props) {
       </Label>
     </Button>
     </Popup>
-    {user&&user.userName===userName&&<DeleteButton callBack={deletePostCallBack}/>}   {/* if the logged user is the post owner  */}
+    {user&&user.userName===userName&&<DeleteButton postId={postId} callBack={deletePostCallBack}/>}   {/* if the logged user is the post owner  */}
   </div>
     </Card.Content>
         </Card>
