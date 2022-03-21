@@ -25,7 +25,7 @@ export function DeleteButton({postId, commentId, callBack}) {
 
     chachedData.getPosts = chachedData.getPosts.filter(item => item.id !==postId);
     console.log('ppppppppppppppppp', chachedData)
-    proxy.writeQuery({ query: FETCH_POSTS_QUERY, chachedData });
+    proxy.writeQuery({ query: FETCH_POSTS_QUERY, data: chachedData });
     console.log('vvvvvvvvvvvv', chachedData)
 
 }
