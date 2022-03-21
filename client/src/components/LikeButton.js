@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/react-hooks';
 import gql from 'graphql-tag';
 import { Button, Label, Icon } from 'semantic-ui-react';
+import {Popup} from '../components/Popup';
 
 export function LikeButton({user, post: {likeCount, id, likes}}) {
     const [alreadyLiked, setAlreadyLiked] = useState(false);
@@ -50,7 +51,11 @@ export function LikeButton({user, post: {likeCount, id, likes}}) {
       </Button>
     )
 
-    return likeButton;
+    return (
+      <Popup content={alreadyLiked ? 'Unlike' : 'Like'}>
+        {likeButton}
+      </Popup>
+    ) ;
 }
 
 
